@@ -3,7 +3,7 @@
 ## Content
 
 - Data Analysis
-  * Exploratory Data Analysis on Stock Price
+  1. Exploratory Data Analysis on Stock Price
   
   Hedge funds, investment management companies, and many other financial institutions are putting in lots of effort and money every year, trying to predict the stock market so that they could financially benefit from it. While there are traditional investors like Warren Buffett sticking to fundamental analysis and focusing on the valuation of companies, there are also investors standing on the other side and leveraging technical analysis, which focuses on speculating the ups and downs of the market. Thanks to advancements in big data technology in recent decades, speculators are even trying to solve the market by using computer algorithms and machine learning techniques.
 
@@ -14,7 +14,7 @@
 - Data Science
 
 - Data Visualization
-  * Real-time Stock Market Interactive Dashboard v0.1
+  2. Real-time Stock Market Interactive Dashboard v0.1
 
    The first preliminary version of the real-time stock market interactive dashboard has been published. The main technical features of the dashboard include:
    

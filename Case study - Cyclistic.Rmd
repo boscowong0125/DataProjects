@@ -1,0 +1,130 @@
+---
+title: 'Case Study: How does a bike-share navigate speedy success?'
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Background
+Cyclistic, a Chicago-based bike-share company, would like to design a new marketing campaign to boost the number of annual subscription. The most probable way to achieve this goal is to attract casual riders using Cyclistic's bikes to join the membership. Therefore, we want to explore the differences between casual riders and Cyclistic members through data to figure out which types of casual riders are the most efficient to marketing to. The insight will be used by the Cyclistic marketing analytics team to design marketing strategy. 
+
+## Import libraries
+
+```{r, message=FALSE}
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+```
+## Import dataset
+Data source: https://divvy-tripdata.s3.amazonaws.com/index.html
+
+We will be using data from Nov-2021 to Oct-2022 for analysis.
+```{r, message=FALSE}
+df <- list.files(path = "/Users/boscowong0125/Desktop/Coursera Google Data Analytics/Course 8/Case study 1/Data",  # Identify all CSV files
+                       pattern = "*.csv", full.names = TRUE) %>% 
+  lapply(read_csv) %>%                              # Store all files in list
+  bind_rows                                         # Combine data sets into one data set 
+
+head(df)
+```
+## Data cleaning
+
+```{r}
+# number of rows and columns
+dim(df)
+# column names
+colnames(df)
+# data structure
+str(df)
+# descriptive statistics
+summary(df)
+```
+There are 5755694 observations and 13 columns in the dataset. "ride_id" is the primary key for this dataframe.
+
+Next, we want to add new columns to the dataframe to facilitate subsequent analysis. We will add a new column "ride_duration" to represent the length of ride. Also, "started_at" will be break down into "ride_year", "ride_month", "ride_day" and "ride_day_of_week" columns. 
+```{r}
+df$ride_duration <- df$ended_at - df$started_at
+df$ride_duration <- as.numeric(as.character(df$ride_duration))
+df$ride_day <- format(as.Date(df$started_at), "%d")
+df$ride_month <- format(as.Date(df$started_at), "%m")
+df$ride_year <- format(as.Date(df$started_at), "%Y")
+df$ride_day_of_week <- format(as.Date(df$started_at), "%A")
+```
+We want to remove unnecessary columns and non-sense rows as well.
+
+For columns, we will remove "start_lat", "start_lng", "end_lat", "end_lng", "start_station_id" and "end_station_id" as they are no longer useful for our analysis. 
+
+For rows, we will remove rows that have non-positive ride_duration (if any) and missing value in "member_casual" (if any).
+```{r}
+# remove columns
+df <- df %>%
+  select(-c(start_lat, start_lng, end_lat, end_lng, start_station_id, end_station_id))
+# remove rows with non-positive ride_duration
+df <- df[!(df$ride_duration < 0), ]
+# remove missing value with no member or casual label
+df <- df[(df$member_casual == "member" | df$member_casual == "casual"), ]
+str(df)
+```
+Now, the dataframe is ready for analysis
+
+## Exploratory Data Analysis
+
+We will first look into the "ride_duration" as it should be the most intuitive to decide whether the riders are members or not.
+```{r}
+# descriptive analysis
+summary(df$ride_duration)
+
+# members verses casual riders 
+aggregate(df$ride_duration ~ df$member_casual, FUN = mean)
+aggregate(df$ride_duration ~ df$member_casual, FUN = median)
+aggregate(df$ride_duration ~ df$member_casual, FUN = max)
+aggregate(df$ride_duration ~ df$member_casual, FUN = min)
+
+```
+The average ride time by each day for member vs casual riders:
+```{r}
+df$ride_day_of_week <- ordered(df$ride_day_of_week, levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+aggregate(df$ride_duration ~ df$member_casual + df$ride_day_of_week, FUN = mean)
+```
+## Visualization
+
+### The number of rides by type (member_casual) and weekday:
+```{r}
+df %>%
+  mutate(weekday = wday(started_at, label=TRUE)) %>%
+  group_by(member_casual, weekday) %>%
+  summarise(number_of_rides = n(), average_duration = mean(ride_duration)) %>%
+  arrange(member_casual, weekday) %>%
+  ggplot(aes(x = weekday, y = number_of_rides, fill = member_casual)) + geom_col(position = "dodge")
+```
+
+Observation:
+
+1. Casual riders use Cyclistic bikes on weekends more than on weekdays.
+
+2. Cyclistic members use Cyclistic bikes on weekdays more than on weekends.
+
+3. On weekdays, Cyclistic members take more rides than casual riders.
+
+4. On weekends, the number of rides taken by Cyclistic members and casual riders are roughly the same.
+
+### The average length of rides by type (member_casual) and weekday:
+```{r}
+df %>%
+  mutate(weekday = wday(started_at, label=TRUE)) %>%
+  group_by(member_casual, weekday) %>%
+  summarise(number_of_rides = n(), average_duration = mean(ride_duration)) %>%
+  arrange(member_casual, weekday) %>%
+  ggplot(aes(x = weekday, y = average_duration, fill = member_casual)) + geom_col(position = "dodge")
+
+```
+
+Observation:
+
+1. Both Casual riders and Cyclistic members travel longers on weekends.
+
+2. Casual riders ride Cyclistic bikes for significantly longer distance than members on both weekdays and weekends.

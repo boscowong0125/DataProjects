@@ -16,19 +16,13 @@
     - Nowadays, the cost of living becomes higher and higher under inflation. This affects one of the most important aspect of our daily lives - housing, as the home prices are rising much faster than income growth. Especially for a fresh graduate like me, owning a house in developed countries seems too distant because it is foreseeable that I need to spend a huge chunk of money on mortgages for future 25 to 30 years. Yet, it is always good to have a glimpse at the housing market and discover how houses are priced.
     - Skills: Python, Data clearning, data transformation, data visuazlization
 
-3. Case Study - Cyclistic (*Data Analysis*)
-
-    - Dataset: https://divvy-tripdata.s3.amazonaws.com/index.html (Nov-2021 to Dec-2022)
-    - Cyclistic, a Chicago-based bike-share company, would like to design a new marketing campaign to boost the number of annual subscription. The most probable way to achieve this goal is to attract casual riders using Cyclistic's bikes to join the membership. Therefore, we want to explore the differences between casual riders and Cyclistic members through data to figure out which types of casual riders are the most efficient to marketing to.
-    - Skills: R, Data clearning, data transformation, data visuazlization
-
-4. Company Bankruptcy Detection Model (*Data Science - Classification*)
+3. Company Bankruptcy Detection Model (*Data Science - Classification*)
 
     - Dataset: bankruptcy_data.csv
     - In banking and finance field, effective bankruptcy prediction is a very important task since corporate finance is one of the major sources of income of commercial and investment banks. On one hand, the banks want to avoid the default risk of borrowers; on the other hand, they want to earn as much interest as possible by lending money to companies. This dilemma cannot be resolved easily as no one can predict the future and make perfect decisions. In this project, we try to implement supervised learning models to make effective bankruptcy prediction and hopefully we could provide insights into making lending decisions.
     - Skills: Python, PCA, SMOTE, SGD, XGBoost, SVM, Isolation Forest, Grid Search, Confusion Matrix
   
-5. Real-time Stock Market Interactive Dashboard (*Data Visualization - Power BI*)
+4. Real-time Stock Market Interactive Dashboard (*Data Visualization - Power BI*)
 
     - Dataset: /
     - Real-time interactive dashboard to show latest information of individual stocks

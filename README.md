@@ -21,9 +21,3 @@
     - Dataset: bankruptcy_data.csv
     - In banking and finance field, effective bankruptcy prediction is a very important task since corporate finance is one of the major sources of income of commercial and investment banks. On one hand, the banks want to avoid the default risk of borrowers; on the other hand, they want to earn as much interest as possible by lending money to companies. This dilemma cannot be resolved easily as no one can predict the future and make perfect decisions. In this project, we try to implement supervised learning models to make effective bankruptcy prediction and hopefully we could provide insights into making lending decisions.
     - Skills: Python, PCA, SMOTE, SGD, XGBoost, SVM, Isolation Forest, Grid Search, Confusion Matrix
-  
-4. Real-time Stock Market Interactive Dashboard (*Data Visualization - Power BI*)
-
-    - Dataset: /
-    - Real-time interactive dashboard to show latest information of individual stocks
-    - Skills: Power Query M language, DAX functions

@@ -1,4 +1,4 @@
-# Showcase of Bosco Wong's personal data analysis / data science / data visualization projects
+# Showcase of Bosco Wong's personal data analytics projects
 
 # Content
 
